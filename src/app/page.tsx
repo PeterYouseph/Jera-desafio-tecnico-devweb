@@ -2,7 +2,6 @@
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import useClient from "next-suspense";
 import NavBar from "./components/Header";
 import Modal from "./components/Settings";
 
@@ -11,8 +10,8 @@ const Pomodoro = dynamic(() => import("./components/Pomodoro"), { ssr: false });
 const Home: NextPage = () => {
   const [isPomodoroRunning, setIsPomodoroRunning] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [initialTime, setInitialTime] = useState(5);
-  const [breakTime, setBreakTime] = useState(5);
+  const [initialTime, setInitialTime] = useState(25*60);
+  const [breakTime, setBreakTime] = useState(5*60);
   const [isPomodoroCompleted, setIsPomodoroCompleted] = useState(false);
 
   const handleStart = () => {
