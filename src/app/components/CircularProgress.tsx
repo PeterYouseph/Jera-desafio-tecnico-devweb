@@ -1,21 +1,18 @@
-import React from "react";
-import { GiAlarmClock } from "react-icons/gi";
+import React from "react"; //Import do React para utilizar o pacote do React-Icons.
+import { GiAlarmClock } from "react-icons/gi"; //Import do React-Icons e o ícone utilizado no componente.
 
 type CircularProgressProps = {
+  //Define o tipo das props necessárias para o componente CirularProgress.
   progress: number;
   radius: number;
 };
 
+//Define o componente CirularProgress, recebendo as props definidas na interface: progresso do tiemr e raio do mesmo.
 const CircularProgress = ({ progress, radius }: CircularProgressProps) => {
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
+  const circumference = 2 * Math.PI * radius; //Const que realiza o cálculo da circunferência do círculo.
+  const strokeDashoffset = circumference - (progress / 100) * circumference; //Const que utiliza o cálculo da circunferência para elaborar a borda do progresso.
 
-  // calcular o ponto no círculo para o ícone
-
-  const iconPositionY =
-    radius +
-    (radius - 100) * Math.sin((progress / 100) * 2 * Math.PI - Math.PI / 2);
-
+  //Return do componente, indicando o progresso do timer de Pomodoro, com um ícone decorativo no centro do círculo.
   return (
     <svg className="w-60 h-60">
       <circle

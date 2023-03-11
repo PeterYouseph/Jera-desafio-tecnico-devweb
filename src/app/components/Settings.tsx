@@ -1,22 +1,24 @@
-import { useState } from "react";
+import { useState } from "react"; //Import do React useState para gerenciar o estado das informações.
 
-type ModalProps = {
+type ModalProps = { //Define o tipo das props necessárias para o componente Settings através da interface.
   isOpen: boolean;
   onClose: () => void;
   onConfirm: (initialTime: number, breakTime: number) => void;
   modalClass?: string; // nova prop para a classe do modal
 };
 
+//Define o componente Modal,recebendo as props definidas na interface: booleano isOpen, função isClosed e função onConfirm (para enviar os dados).
 const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
-  const [initialTime, setInitialTime] = useState(25 * 60);
-  const [breakTime, setBreakTime] = useState(5 * 60);
+  const [initialTime, setInitialTime] = useState(25 * 60); //Const para definir o tempo inicial do timer no componente Modal.
+  const [breakTime, setBreakTime] = useState(5 * 60); //Const para definir o tempo inicial de pausa do timer no componente Modal.
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => { //Função que faz envio dos dados quando o forms é enviado.
     event.preventDefault();
     onConfirm(initialTime, breakTime);
     onClose();
   };
 
+  //Renderização do componente Modal, com as opções de alterar os timers de pomodoro/pausa, enviar ou cancelar a ação.
   return (
     <>
       {isOpen && (
