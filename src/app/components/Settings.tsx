@@ -1,6 +1,7 @@
 import { useState } from "react"; //Import do React useState para gerenciar o estado das informações.
 
-type ModalProps = { //Define o tipo das props necessárias para o componente Settings através da interface.
+type ModalProps = {
+  //Define o tipo das props necessárias para o componente Settings através da interface.
   isOpen: boolean;
   onClose: () => void;
   onConfirm: (initialTime: number, breakTime: number) => void;
@@ -12,7 +13,8 @@ const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
   const [initialTime, setInitialTime] = useState(25 * 60); //Const para definir o tempo inicial do timer no componente Modal.
   const [breakTime, setBreakTime] = useState(5 * 60); //Const para definir o tempo inicial de pausa do timer no componente Modal.
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => { //Função que faz envio dos dados quando o forms é enviado.
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    //Função que faz envio dos dados quando o forms é enviado.
     event.preventDefault();
     onConfirm(initialTime, breakTime);
     onClose();
@@ -43,9 +45,13 @@ const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
                   min="1"
                   max="120"
                   value={initialTime}
-                  onChange={(event) =>
-                    setInitialTime(parseInt(event.target.value))
-                  }
+                  onChange={(event) => {
+                    const value = parseInt(event.target.value);
+                    if (value > 0) {
+                      setInitialTime(value);
+                    }
+                  }}
+                  required
                 />
               </div>
               <div className="mb-4">
@@ -59,9 +65,13 @@ const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
                   min="1"
                   max="120"
                   value={breakTime}
-                  onChange={(event) =>
-                    setBreakTime(parseInt(event.target.value))
-                  }
+                  onChange={(event) => {
+                    const value = parseInt(event.target.value);
+                    if (value > 0) {
+                      setBreakTime(value);
+                    }
+                  }}
+                  required
                 />
               </div>
               <div className="flex justify-end">
