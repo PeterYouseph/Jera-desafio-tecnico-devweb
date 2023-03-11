@@ -32,7 +32,9 @@ const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
             className="modal bg-white rounded-lg p-8"
             onClick={(event) => event.stopPropagation()}
           >
-            <h2 className="text-2xl font-bold mb-4">Configurações</h2>
+            <h2 className="text-2xl font-bold mb-4 flex justify-center">
+              Configurações
+            </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="initialTime" className="block font-bold">
@@ -74,7 +76,7 @@ const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
                   required
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="flex flex justify-center">
                 <button
                   className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded mr-2"
                   onClick={onClose}
