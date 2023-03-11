@@ -1,21 +1,22 @@
 import { useState, useEffect, useRef } from "react"; //Imports do React necessários para utilizar os hooks do mesmo.
-import ProgressBar from "./CircularProgress"; //Import da barra circular para mostrar o progresso do timer.
+import ProgressBar from "./circularProgress"; //Import da barra circular para mostrar o progresso do timer.
 
-type PomodoroProps = { //Define o tipo das props necessárias para o componente Pomodoro através da interface.
+type PomodoroProps = {
+  //Define o tipo das props necessárias para o componente Pomodoro através da interface.
   initialTime: number;
   onTimeUp: () => void;
   breakTime: number;
 };
 
 //Define o componente Pomodoro, recebendo as props definidas na interface: Tempo inicial para o timer, estado atual do timer (intervalo, pomodoro ou pausa).
-const Pomodoro = ({ initialTime, onTimeUp, breakTime }: PomodoroProps) => { 
+const Pomodoro = ({ initialTime, onTimeUp, breakTime }: PomodoroProps) => {
   const [timeRemaining, setTimeRemaining] = useState(initialTime); //Const que define o tempo restante.
   const [isRunning, setIsRunning] = useState(false); //Const para definir o estado atual, ou seja, se está ou não rodando o timer naquele momento.
   const [isWorkTime, setIsWorkTime] = useState(true); //Const para definir se o timer está em uma contagem de horas de trabalho/pomodoro.
   const [isPaused, setIsPaused] = useState(false); //Const para verificicar se o timer está pausado.
   const totalDuration = isWorkTime ? initialTime : breakTime || 0; //Const que armazena a duração total do timer de Pomodoro.
   const percentage = ((totalDuration - timeRemaining) / totalDuration) * 100; //Const que armazena e faz o cálculo necessário para repassar para o componente ProgressBar.
-  const [showPomodoroNotification, setShowPomodoroNotification] = 
+  const [showPomodoroNotification, setShowPomodoroNotification] =
     useState(false);
   const alert = "./audio/alertSound.mp3"; //Const que armazena o estado atual das notificações, se estão ou não ativas.
 
@@ -25,14 +26,15 @@ const Pomodoro = ({ initialTime, onTimeUp, breakTime }: PomodoroProps) => {
       parseInt(localStorage.getItem("totalCompletedPomodoros") ?? "0")
     ); //Const que armazena a quantidade de vezes na qual foram executados os ciclos do timer de Pomodoro, durante todo o período que o usuário utilizou o Pomodoro Timer.
 
-  const handleStart = (isBreak: boolean) => { //Função para iniciar o temporizador, verificando de forma booleana se está ou não na hora da pausa.
+  const handleStart = (isBreak: boolean) => {
+    //Função para iniciar o temporizador, verificando de forma booleana se está ou não na hora da pausa.
     setIsRunning(true);
     setIsWorkTime(!isBreak);
     setTimeRemaining(isBreak ? breakTime : initialTime);
   };
 
-// useEffect utilizado para atualizar o estado das consts definidas anteriormente (tempo restante, iniciar ou pausar o timer, mostrar notificações e soma dos ciclos de pomodoros).
-  useEffect(() => { 
+  // useEffect utilizado para atualizar o estado das consts definidas anteriormente (tempo restante, iniciar ou pausar o timer, mostrar notificações e soma dos ciclos de pomodoros).
+  useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
     if (!isRunning) {
@@ -72,7 +74,6 @@ const Pomodoro = ({ initialTime, onTimeUp, breakTime }: PomodoroProps) => {
       setIsWorkTime(false);
     }
 
-
     if (timeRemaining === 0 && isRunning) {
       setIsRunning(false);
       onTimeUp();
@@ -80,7 +81,7 @@ const Pomodoro = ({ initialTime, onTimeUp, breakTime }: PomodoroProps) => {
         setTotalCompletedPomodoros((prevTotal) => prevTotal + 1);
         setIsWorkTime(false);
         setTimeRemaining(breakTime || 0);
-        
+
         handleStart(true);
       } else {
         setIsWorkTime(true);
@@ -97,7 +98,7 @@ const Pomodoro = ({ initialTime, onTimeUp, breakTime }: PomodoroProps) => {
             );
             // reproduzindo o arquivo de áudio quando a notificação for exibida
             notification.addEventListener("show", function () {
-              new Audio('./audio/alertSound.wav').play();
+              new Audio("./audio/alertSound.wav").play();
             });
           } else {
             window.alert(
@@ -107,7 +108,6 @@ const Pomodoro = ({ initialTime, onTimeUp, breakTime }: PomodoroProps) => {
           }
         });
       }
-      
     }
     console.log(completedPomodoros);
     return () => clearInterval(intervalId);
@@ -124,24 +124,28 @@ const Pomodoro = ({ initialTime, onTimeUp, breakTime }: PomodoroProps) => {
     showPomodoroNotification,
   ]);
 
-  useEffect(() => { //useEffect que realiza o gerenciamento da quantidade de ciclos de pomodoro que foram realizados pelo user.
+  useEffect(() => {
+    //useEffect que realiza o gerenciamento da quantidade de ciclos de pomodoro que foram realizados pelo user.
     localStorage.setItem(
       "totalCompletedPomodoros",
       totalCompletedPomodoros.toString()
     );
   }, [totalCompletedPomodoros]);
-  const handlePause = () => { //Função que ealiza a pausa no timer.
+  const handlePause = () => {
+    //Função que ealiza a pausa no timer.
     setIsPaused(!isPaused);
   };
 
-  const handleReset = () => { //Função que reseta o timer.
+  const handleReset = () => {
+    //Função que reseta o timer.
     setIsRunning(false);
     setIsWorkTime(true);
     setIsPaused(false);
     setTimeRemaining(initialTime);
   };
 
-  const handleResume = () => { //Função que retoma o timer do pomodoro após uma o usuário clicar em pausa.
+  const handleResume = () => {
+    //Função que retoma o timer do pomodoro após uma o usuário clicar em pausa.
     setIsPaused(false);
   };
 
@@ -151,7 +155,7 @@ const Pomodoro = ({ initialTime, onTimeUp, breakTime }: PomodoroProps) => {
       <h1 className="text-4xl font-bold text-center mb-4 text-slate-700">
         {isWorkTime ? "Hora de trabalhar!" : "Hora de descansar!"}
       </h1>
-          <h2 className="text-xl font-bold mb-2 text-slate-700">
+      <h2 className="text-xl font-bold mb-2 text-slate-700">
         Você completou{" "}
         <span className="text-2xl font-bold mb-2 text-slate-900">
           {totalCompletedPomodoros}

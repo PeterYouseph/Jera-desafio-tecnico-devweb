@@ -2,11 +2,11 @@
 import type { NextPage } from "next"; //Imports necessários do NextJs para utilização de recursos.
 import dynamic from "next/dynamic";
 import { useState } from "react"; //Import do React para utilização do recurso useState.
-import NavBar from "./components/Header"; //Import dos componentes NavBar, Modal e Pomodoro.
+import NavBar from "./components/header"; //Import dos componentes NavBar, Modal e Pomodoro.
 import Modal from "./components/Settings";
 
 //Import dynamic do componente Pomodoro, para realizar as modificações/atualizações necessárias.
-const Pomodoro = dynamic(() => import("./components/Pomodoro"), { ssr: false });
+const Pomodoro = dynamic(() => import("./components/pomodoro"), { ssr: false });
 
 //Define a página Home, inicializando as props necessárias para os componentes nela presentes.
 const Home: NextPage = () => {
