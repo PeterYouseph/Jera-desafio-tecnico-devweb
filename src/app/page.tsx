@@ -52,7 +52,7 @@ const Home: NextPage = () => {
         {!isPomodoroRunning && !isPomodoroCompleted ? (
           <>
             <h1 className="text-4xl font-bold  text-slate-700 mb-8">
-              Seja bem-vindo ao Pomodoro Timer!
+              Seja Bem-vindo(a) ao Pomodoro Timer!
             </h1>
             <button
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
