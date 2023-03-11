@@ -76,7 +76,7 @@ const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
                   required
                 />
               </div>
-              <div className="flex flex justify-center">
+              <div className="flex justify-center">
                 <button
                   className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded mr-2"
                   onClick={onClose}
