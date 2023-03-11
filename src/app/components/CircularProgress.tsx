@@ -24,7 +24,7 @@ const CircularProgress = ({ progress, radius }: CircularProgressProps) => {
         cy="50%"
       />
       <circle
-        stroke="#6A0808"
+        stroke="#B62525"
         strokeWidth="10"
         strokeLinecap="round"
         fill="none"
